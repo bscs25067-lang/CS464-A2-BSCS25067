@@ -6,6 +6,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
 
+    [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius;
+    [SerializeField] private LayerMask groundMask;
+
     private Rigidbody _rb;
     private bool _isGrounded;
     private bool _jumpBuffer;
@@ -18,8 +23,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        _isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
+
         _input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        _input = Vector2.Normalize(_input);
+        _input = Vector2.ClampMagnitude(_input, 1);
 
         if (_isGrounded && Input.GetKey(KeyCode.Space))
             _jumpBuffer = true;
@@ -35,6 +42,14 @@ public class PlayerMovement : MonoBehaviour
             _jumpBuffer = false;
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (groundCheck == null) return;
+
+        Gizmos.color = _isGrounded ? Color.green : Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 
     private void OnCollisionStay(Collision collision)
