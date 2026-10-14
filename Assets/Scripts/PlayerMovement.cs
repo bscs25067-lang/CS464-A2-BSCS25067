@@ -26,10 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minAirTime = 0.1f;
 
     private Rigidbody _rb;
-    private Vector2 _input;
+    private Vector3 _moveInput;
     private float _airTime;
     private Coroutine _squashRoutine;
-    private Vector3 _bodyRestPos;
 
     private bool _isGrounded, _wasGrounded;
     private bool _jumpQueue;
@@ -37,20 +36,32 @@ public class PlayerMovement : MonoBehaviour
     private float _lastPressedJumpTime;
     private float _lastGroundedTime;
 
+    private Transform _cam;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _bodyRestPos = body.localPosition;
+        _cam = Camera.main.transform;
     }
 
     private void Update()
     {
         // Move Input
-        _input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        _input = Vector2.ClampMagnitude(_input, 1);
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Vector3 forward = _cam.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        Vector3 right = _cam.right;
+        right.y = 0f;
+        right.Normalize();
+
+        _moveInput = Vector3.ClampMagnitude((forward * v) + (right * h), 1f);
 
         // Jump Input & Buffering
-        if(Input.GetKeyDown(KeyCode.Space)) _lastPressedJumpTime = Time.time;
+        if (Input.GetKeyDown(KeyCode.Space)) _lastPressedJumpTime = Time.time;
         bool wantJump = Time.time - _lastPressedJumpTime <= jumpBuffer;
 
         // Coyote Jumping
@@ -79,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
 
         // Applying Body Movement
-        Vector3 movement = moveSpeed * new Vector3(_input.x, 0, _input.y);
+        Vector3 movement = moveSpeed * _moveInput;
         _rb.linearVelocity = new Vector3(movement.x, _rb.linearVelocity.y, movement.z);
 
         if(_jumpQueue)
