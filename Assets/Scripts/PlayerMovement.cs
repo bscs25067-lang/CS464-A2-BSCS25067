@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     [Header("Jump Settings")]
-    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpHeight;
     [SerializeField] private float fallMultiplier;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBuffer = 0.2f;
@@ -64,10 +64,10 @@ public class PlayerMovement : MonoBehaviour
         {
             _jumpQueue = false;
             float gravity = -Physics.gravity.y;
-            float v0 = Mathf.Sqrt(2 * gravity * jumpForce);
+            float v0 = Mathf.Sqrt(2 * gravity * jumpHeight);
 
-            _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.y);
-            _rb.AddForce(Vector3.up * jumpForce * _rb.mass * v0, ForceMode.Impulse);
+            _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.z);
+            _rb.AddForce(Vector3.up * _rb.mass * v0, ForceMode.Impulse);
         }
 
         if (_rb.linearVelocity.y < 0f)

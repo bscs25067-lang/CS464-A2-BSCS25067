@@ -473,8 +473,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
   target: {fileID: 1501448294}
-  smoothing: 5
-  offset: {x: 0, y: 2, z: -4}
+  smoothing: 10
+  offset: {x: 0, y: 3, z: -4}
+  lookahead: 0.3
 --- !u!1001 &377137319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2962,6 +2963,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 50743339991947980, guid: e5bf80460f55cf243b9505770eea9258, type: 3}
+      propertyPath: jumpHeight
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5941494101716917080, guid: e5bf80460f55cf243b9505770eea9258, type: 3}
       propertyPath: m_Name
       value: Player
