@@ -1,4 +1,4 @@
-# CS464 Assignment 02 · ⚠️[Your full name] · ⚠️[Roll no]
+# CS464 Assignment 02 · Abdullah Saeed - BSCS25067
 
 - **Video:** [Google Drive link](https://drive.google.com/file/d/16xG5hBgWxGf_hubeqNxkgeDx_N7aAKmV/view?usp=sharing)
 - **Input:** Legacy Input (`Input.GetAxis`, `GetKeyDown(Space)`), Input Handling set to Both
