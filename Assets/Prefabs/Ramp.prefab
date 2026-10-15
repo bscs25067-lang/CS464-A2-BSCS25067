@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7867152364226267034}
   - component: {fileID: 8781495448246930509}
   - component: {fileID: 8444699117481900081}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140858871376618695}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70441604, y: 0.06162846, z: -0.061628472, w: 0.7044161}
+  m_LocalRotation: {x: -0.70441604, y: 0.06162846, z: -0.06162846, w: 0.70441604}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 4, z: 0.5}
+  m_LocalScale: {x: 4, y: 4, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
